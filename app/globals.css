@@ -1,0 +1,101 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-barlow-condensed), 'Barlow Condensed', sans-serif;
+  --font-mono: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+
+  --color-pos-forward: var(--pos-forward);
+  --color-pos-midfielder: var(--pos-midfielder);
+  --color-pos-defender: var(--pos-defender);
+  --color-pos-goalkeeper: var(--pos-goalkeeper);
+
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-4xl: 0px;
+}
+
+:root {
+  color-scheme: dark;
+  --radius: 0px;
+
+  --background: #0a0a0a;
+  --foreground: #f4f4f4;
+  --card: #131313;
+  --card-foreground: #f4f4f4;
+  --popover: #131313;
+  --popover-foreground: #f4f4f4;
+  --primary: #00e64d;
+  --primary-foreground: #04140a;
+  --secondary: #1b1b1b;
+  --secondary-foreground: #f4f4f4;
+  --muted: #1b1b1b;
+  --muted-foreground: #8c8c8c;
+  --accent: #00e64d;
+  --accent-foreground: #04140a;
+  --destructive: #ff3b30;
+  --border: #262626;
+  --input: #262626;
+  --ring: #00e64d;
+
+  --pos-forward: #ff6b1a;
+  --pos-midfielder: #00e64d;
+  --pos-defender: #2f7bff;
+  --pos-goalkeeper: #ffd028;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    border-radius: 0 !important;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.6875rem;
+  line-height: 1;
+}
+
+@utility heading-condensed {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 0.92;
+}
