@@ -2,9 +2,9 @@
 
 import Image from 'next/image'
 import { useMemo, useState } from 'react'
-import { ShoppingBag } from 'lucide-react'
 import { PRODUCTS, type ProductCategory } from '@/lib/data'
 import { SectionHeading } from '@/components/section-heading'
+import { ActionDialog } from '@/components/action-dialog'
 
 const TABS: { value: ProductCategory | 'All'; label: string }[] = [
   { value: 'All', label: 'All' },
@@ -80,20 +80,14 @@ export function StoreSection() {
             <span className="heading-condensed text-3xl text-primary">
               Rs 3,600
             </span>
-            <button
-              type="button"
-              className="flex h-12 items-center gap-2 bg-primary px-6 label-mono font-bold text-primary-foreground transition-opacity hover:opacity-90"
-            >
-              <ShoppingBag className="size-4" aria-hidden="true" />
-              Order jersey
-            </button>
+            <ActionDialog label="Order jersey" title="Order your custom jersey" description={`We will prepare ${name || 'YOUR NAME'}'s jersey with number ${number || '10'} for checkout.`} className="flex h-12 items-center gap-2 bg-primary px-6 label-mono font-bold text-primary-foreground transition-opacity hover:opacity-90" />
           </div>
         </div>
 
         <div className="relative min-h-[24rem] bg-secondary">
           <Image
             src="/images/product-jersey.png"
-            alt="Custom PitchLeague jersey preview"
+            alt="Custom PlayPal jersey preview"
             fill
             sizes="(min-width: 1024px) 45vw, 100vw"
             className="object-contain p-8"
@@ -163,12 +157,7 @@ export function StoreSection() {
                     </span>
                   )}
                 </div>
-                <button
-                  type="button"
-                  className="border border-foreground px-4 py-2.5 label-mono font-bold text-foreground transition-colors hover:border-primary hover:text-primary"
-                >
-                  Add to cart
-                </button>
+                <ActionDialog label="Add to cart" title={`Add ${p.name}`} description={`${p.name} has been added to your PlayPal cart. Review your order before checkout.`} className="border border-foreground px-4 py-2.5 label-mono font-bold text-foreground transition-colors hover:border-primary hover:text-primary" />
               </div>
             </div>
           </li>

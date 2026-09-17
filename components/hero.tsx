@@ -36,7 +36,7 @@ export function Hero() {
         <div className="mt-8 grid gap-8 border-t border-border pt-8 lg:grid-cols-[1fr_auto] lg:items-end">
           <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
             Clubs can never find a free ground when they finally find an
-            opponent. PitchLeague fixes both halves of the problem — line up a
+            opponent. PlayPal fixes both halves of the problem — line up a
             head-to-head fixture, post an open request when you&apos;re short on
             players, and lock the pitch in the same flow.
           </p>

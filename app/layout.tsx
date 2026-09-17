@@ -16,9 +16,9 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'PitchLeague — Pakistan\u2019s First Football Ecosystem',
+  title: 'PlayPal — Pakistan\u2019s First Football Ecosystem',
   description:
-    'Challenge clubs head to head, book arenas and grounds by the hour, enter tournaments, buy custom kit and stream live matches. PitchLeague is Pakistan\u2019s football ecosystem.',
+    'Challenge clubs head to head, book arenas and grounds by the hour, enter tournaments, buy custom kit and stream live matches. PlayPal is Pakistan\u2019s football ecosystem.',
   generator: 'v0.app',
   keywords: [
     'football Pakistan',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     'football tournament Pakistan',
   ],
   openGraph: {
-    title: 'PitchLeague — Challenge. Book. Dominate.',
+    title: 'PlayPal — Challenge. Book. Dominate.',
     description:
       'Pakistan\u2019s first football ecosystem: head-to-head matches, open challenges, arena booking, tournaments, store and live streams.',
     type: 'website',
@@ -44,8 +44,8 @@ export const metadata: Metadata = {
         media: '(prefers-color-scheme: dark)',
       },
       {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
+        url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-09-16%20at%204.03.27%20PM-MBMNx0lgmknKc60LrytdlR7wiECRLD.jpeg',
+        type: 'image/jpeg',
       },
     ],
     apple: '/apple-icon.png',

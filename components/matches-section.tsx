@@ -1,9 +1,79 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { Clock, MapPin, Swords, UserPlus } from 'lucide-react'
+import { Clock, MapPin, Swords, UserPlus, X } from 'lucide-react'
 import { CITIES, MATCHES, type MatchType } from '@/lib/data'
 import { SectionHeading } from '@/components/section-heading'
+import { ActionDialog } from '@/components/action-dialog'
+
+const FIXTURE_TIMES = ['08:00 AM', '10:00 AM', '12:00 PM', '02:00 PM', '04:00 PM', '06:00 PM', '08:00 PM']
+const FIXTURE_DURATIONS = ['60 minutes', '90 minutes', '120 minutes']
+
+function FixtureRequestDialog({ match }: { match: (typeof MATCHES)[number] }) {
+  const [open, setOpen] = useState(false)
+  const [date, setDate] = useState('')
+  const [time, setTime] = useState('')
+  const [location, setLocation] = useState(match.city)
+  const [duration, setDuration] = useState('90 minutes')
+  const [payment, setPayment] = useState('advance')
+  const [submitted, setSubmitted] = useState(false)
+
+  const close = () => {
+    setOpen(false)
+    setSubmitted(false)
+  }
+
+  return (
+    <>
+      <button type="button" onClick={() => setOpen(true)} className="border border-foreground px-4 py-2.5 label-mono font-bold text-foreground transition-colors hover:border-primary hover:text-primary">
+        Request fixture
+      </button>
+      {open && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-background/80 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby={`fixture-title-${match.id}`}>
+          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto border border-border bg-card p-6 shadow-2xl">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="label-mono text-primary">PlayPal fixture request</p>
+                <h2 id={`fixture-title-${match.id}`} className="heading-condensed mt-2 text-4xl">Request {match.home} vs {match.away || 'your team'}</h2>
+              </div>
+              <button type="button" onClick={close} aria-label="Close fixture request" className="flex size-9 items-center justify-center border border-border text-muted-foreground hover:text-foreground"><X className="size-4" /></button>
+            </div>
+            {submitted ? (
+              <div className="mt-6 space-y-4">
+                <div className="border border-primary/40 bg-primary/10 p-4 label-mono">Fixture request submitted for {date} at {time} in {location}, {duration}, with {payment === 'full' ? 'full payment' : 'advance payment'}.</div>
+                <button type="button" onClick={close} className="w-full border border-foreground py-3 label-mono font-bold hover:border-primary hover:text-primary">Close</button>
+              </div>
+            ) : (
+              <form onSubmit={(event) => { event.preventDefault(); if (date && time && location && duration && payment) setSubmitted(true) }} className="mt-6 grid gap-5 sm:grid-cols-2">
+                <div>
+                  <label htmlFor={`fixture-date-${match.id}`} className="label-mono text-muted-foreground">Select date</label>
+                  <input id={`fixture-date-${match.id}`} type="date" required value={date} onChange={(event) => setDate(event.target.value)} min={new Date().toISOString().slice(0, 10)} className="mt-2 h-12 w-full border border-border bg-background px-3 label-mono text-foreground focus:border-primary focus:outline-none" />
+                </div>
+                <div>
+                  <label htmlFor={`fixture-city-${match.id}`} className="label-mono text-muted-foreground">Location / city</label>
+                  <select id={`fixture-city-${match.id}`} value={location} onChange={(event) => setLocation(event.target.value as (typeof CITIES)[number])} className="mt-2 h-12 w-full border border-border bg-background px-3 label-mono text-foreground focus:border-primary focus:outline-none">{CITIES.map((cityName) => <option key={cityName} value={cityName}>{cityName}</option>)}</select>
+                </div>
+                <fieldset className="sm:col-span-2">
+                  <legend className="label-mono text-muted-foreground">Select kick-off time</legend>
+                  <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">{FIXTURE_TIMES.map((slot) => <label key={slot} className={`cursor-pointer border px-3 py-3 text-center label-mono transition-colors ${time === slot ? 'border-primary bg-primary text-primary-foreground' : 'border-border text-foreground hover:border-primary hover:text-primary'}`}><input type="radio" name={`fixture-time-${match.id}`} value={slot} checked={time === slot} onChange={() => setTime(slot)} className="sr-only" />{slot}</label>)}</div>
+                </fieldset>
+                <div>
+                  <label htmlFor={`fixture-duration-${match.id}`} className="label-mono text-muted-foreground">Booking duration</label>
+                  <select id={`fixture-duration-${match.id}`} value={duration} onChange={(event) => setDuration(event.target.value)} className="mt-2 h-12 w-full border border-border bg-background px-3 label-mono text-foreground focus:border-primary focus:outline-none">{FIXTURE_DURATIONS.map((option) => <option key={option} value={option}>{option}</option>)}</select>
+                </div>
+                <fieldset>
+                  <legend className="label-mono text-muted-foreground">Payment option</legend>
+                  <div className="mt-2 grid grid-cols-2 gap-2">{[['advance', 'Advance'], ['full', 'Full payment']].map(([value, label]) => <label key={value} className={`cursor-pointer border px-3 py-3 text-center label-mono transition-colors ${payment === value ? 'border-primary bg-primary text-primary-foreground' : 'border-border text-foreground hover:border-primary hover:text-primary'}`}><input type="radio" name={`fixture-payment-${match.id}`} value={value} checked={payment === value} onChange={() => setPayment(value)} className="sr-only" />{label}</label>)}</div>
+                </fieldset>
+                <button type="submit" disabled={!date || !time} className="sm:col-span-2 bg-primary py-3 label-mono font-bold text-primary-foreground transition-opacity enabled:hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40">Submit fixture request</button>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
 
 const TYPE_FILTERS: { value: MatchType | 'all'; label: string }[] = [
   { value: 'all', label: 'All fixtures' },
@@ -152,16 +222,16 @@ export function MatchesSection() {
 
               <div className="mt-auto flex items-center justify-between gap-3 border-t border-border pt-4">
                 <span className="label-mono text-foreground">{m.fee}</span>
-                <button
-                  type="button"
-                  className={`px-4 py-2.5 label-mono font-bold transition-opacity hover:opacity-90 ${
-                    isOpen
-                      ? 'bg-pos-goalkeeper text-primary-foreground'
-                      : 'border border-foreground text-foreground hover:border-primary hover:text-primary'
-                  }`}
-                >
-                  {isOpen ? 'Join match' : 'Request fixture'}
-                </button>
+                {isOpen ? (
+                  <ActionDialog
+                    label="Join match"
+                    title="Join this match"
+                    description="Choose your player slot and confirm your details to join this open fixture."
+                    className="bg-pos-goalkeeper px-4 py-2.5 label-mono font-bold text-primary-foreground transition-opacity hover:opacity-90"
+                  />
+                ) : (
+                  <FixtureRequestDialog match={m} />
+                )}
               </div>
             </li>
           )
