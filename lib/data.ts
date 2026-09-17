@@ -163,7 +163,7 @@ export const ARENAS: Arena[] = [
     city: 'Karachi',
     area: 'DHA Phase 8',
     image: '/images/arena-1.png',
-    sports: ['Football', 'Futsal', 'Cricket'],
+    sports: ['Football', 'Futsal', 'Cricket', 'Padel'],
     price: 'Rs 4,500 / hr',
     rating: 4.8,
     reviews: 214,
