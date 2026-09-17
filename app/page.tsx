@@ -7,7 +7,6 @@ import { OpenChallengeCta } from '@/components/open-challenge-cta'
 import { TournamentsSection } from '@/components/tournaments-section'
 import { PlayersSection } from '@/components/players-section'
 import { StoreSection } from '@/components/store-section'
-import { StreamSection } from '@/components/stream-section'
 import { SiteFooter } from '@/components/site-footer'
 
 export default function Page() {
@@ -23,8 +22,7 @@ export default function Page() {
         <TournamentsSection />
         <PlayersSection />
         <StoreSection />
-        <StreamSection />
-      </main>
+        </main>
       <SiteFooter />
     </>
   )

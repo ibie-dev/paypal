@@ -14,7 +14,7 @@ const COLUMNS = [
       { label: 'Arenas', href: '#arenas' },
       { label: 'Futsal courts', href: '#arenas' },
       { label: 'List your ground', href: '#arenas' },
-      { label: 'Pricing', href: '#live' },
+      { label: 'Pricing', href: '#arenas' },
     ],
   },
   {
@@ -22,8 +22,6 @@ const COLUMNS = [
     links: [
       { label: 'Store', href: '#store' },
       { label: 'Custom jerseys', href: '#store' },
-      { label: 'Live streams', href: '#live' },
-      { label: 'Stream passes', href: '#live' },
     ],
   },
   {
@@ -50,7 +48,7 @@ export function SiteFooter() {
             />
             <p className="mt-4 max-w-sm leading-relaxed text-muted-foreground">
               Pakistan&apos;s first football ecosystem. Fixtures, grounds,
-              tournaments, kit and streams — one platform, one game.
+              tournaments and kit — one platform, one game.
             </p>
             <p className="label-mono mt-6 text-muted-foreground">
               Karachi · Lahore · Islamabad · +25 more cities

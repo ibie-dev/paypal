@@ -9,7 +9,6 @@ const NAV = [
   { label: 'Tournaments', href: '#tournaments' },
   { label: 'Players', href: '#players' },
   { label: 'Store', href: '#store' },
-  { label: 'Live', href: '#live' },
 ]
 
 export function SiteHeader() {
