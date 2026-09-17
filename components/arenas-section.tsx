@@ -21,6 +21,7 @@ function ArenaBookingDialog({ arena }: { arena: (typeof ARENAS)[number] }) {
   const [open, setOpen] = useState(false)
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
+  const [sport, setSport] = useState('')
   const [confirmed, setConfirmed] = useState(false)
 
   function close() {
@@ -44,13 +45,24 @@ function ArenaBookingDialog({ arena }: { arena: (typeof ARENAS)[number] }) {
               <button type="button" onClick={close} className="flex size-9 items-center justify-center border border-border text-muted-foreground hover:text-foreground" aria-label="Close booking dialog"><X className="size-4" /></button>
             </div>
             {confirmed ? (
-              <div className="mt-6 border border-primary/40 bg-primary/10 p-4 label-mono text-foreground">Request saved for {date} at {time}. PlayPal will confirm availability next.</div>
+              <div className="mt-6 border border-primary/40 bg-primary/10 p-4 label-mono text-foreground">Request saved for {sport} on {date} at {time}. PlayPal will confirm availability next.</div>
             ) : (
-              <form onSubmit={(event) => { event.preventDefault(); if (date && time) setConfirmed(true) }} className="mt-6 space-y-5">
+              <form onSubmit={(event) => { event.preventDefault(); if (date && time && sport) setConfirmed(true) }} className="mt-6 space-y-5">
                 <div>
                   <label htmlFor={`date-${arena.id}`} className="label-mono text-muted-foreground">Select date</label>
                   <input id={`date-${arena.id}`} type="date" required value={date} onChange={(event) => setDate(event.target.value)} min={new Date().toISOString().slice(0, 10)} className="mt-2 h-12 w-full border border-border bg-background px-3 label-mono text-foreground focus:border-primary focus:outline-none" />
                 </div>
+                <fieldset>
+                  <legend className="label-mono text-muted-foreground">Select sport</legend>
+                  <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                    {arena.sports.map((option) => (
+                      <label key={option} className={`cursor-pointer border px-3 py-3 text-center label-mono transition-colors ${sport === option ? 'border-primary bg-primary text-primary-foreground' : 'border-border text-foreground hover:border-primary hover:text-primary'}`}>
+                        <input type="radio" name={`sport-${arena.id}`} value={option} checked={sport === option} onChange={() => setSport(option)} className="sr-only" />
+                        {option}
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
                 <fieldset>
                   <legend className="label-mono text-muted-foreground">Select time</legend>
                   <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -62,7 +74,7 @@ function ArenaBookingDialog({ arena }: { arena: (typeof ARENAS)[number] }) {
                     ))}
                   </div>
                 </fieldset>
-                <button type="submit" disabled={!date || !time} className="w-full bg-primary py-3 label-mono font-bold text-primary-foreground transition-opacity enabled:hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40">{arena.status === 'full' ? 'Join waitlist' : 'Confirm booking request'}</button>
+                <button type="submit" disabled={!date || !time || !sport} className="w-full bg-primary py-3 label-mono font-bold text-primary-foreground transition-opacity enabled:hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40">{arena.status === 'full' ? 'Join waitlist' : 'Confirm booking request'}</button>
               </form>
             )}
             {confirmed && <button type="button" onClick={close} className="mt-6 w-full border border-foreground py-3 label-mono font-bold text-foreground hover:border-primary hover:text-primary">Close</button>}
