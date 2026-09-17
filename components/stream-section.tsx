@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Check, Eye, Lock, Play } from 'lucide-react'
+import { Check, Eye, Play } from 'lucide-react'
 import { STREAMS, STREAM_PASSES } from '@/lib/data'
 import { SectionHeading } from '@/components/section-heading'
 import { ActionDialog } from '@/components/action-dialog'
@@ -27,9 +27,7 @@ export function StreamSection() {
                   alt={s.title}
                   fill
                   sizes="(min-width: 1024px) 33vw, 100vw"
-                  className={`object-cover transition-transform duration-500 group-hover:scale-105 ${
-                    s.locked ? 'opacity-50' : ''
-                  }`}
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
 
                 <span className="absolute left-0 top-0 flex items-center gap-2 px-3 py-1.5 label-mono font-bold">
@@ -52,21 +50,12 @@ export function StreamSection() {
                 </span>
 
                 <div className="absolute inset-0 flex items-center justify-center">
-                  {s.locked ? (
-                    <span className="flex flex-col items-center gap-3">
-                      <Lock className="size-7 text-foreground" aria-hidden="true" />
-                      <span className="bg-primary px-4 py-2.5 label-mono font-bold text-primary-foreground">
-                        Get pass to watch
-                      </span>
-                    </span>
-                  ) : (
-                    <span className="flex size-16 items-center justify-center border-2 border-primary bg-background/70">
-                      <Play
-                        className="size-6 fill-primary text-primary"
-                        aria-hidden="true"
-                      />
-                    </span>
-                  )}
+                  <span className="flex size-16 items-center justify-center border-2 border-primary bg-background/70">
+                    <Play
+                      className="size-6 fill-primary text-primary"
+                      aria-hidden="true"
+                    />
+                  </span>
                 </div>
               </div>
 
