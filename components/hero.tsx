@@ -41,9 +41,9 @@ export function Hero() {
             players, and lock the pitch in the same flow.
           </p>
 
-          <div className="flex flex-wrap gap-3">
-            <a
-              href="#matches"
+        <div className="flex flex-col items-center gap-3">
+          <a
+            href="#matches"
               className="group flex h-14 items-center gap-3 bg-primary px-7 label-mono text-sm font-bold text-primary-foreground transition-opacity hover:opacity-90"
             >
               Challenge a club
@@ -53,8 +53,8 @@ export function Hero() {
               />
             </a>
             <a
-              href="#arenas"
-              className="flex h-14 items-center gap-3 border border-foreground px-7 label-mono text-sm font-bold text-foreground transition-colors hover:border-primary hover:text-primary"
+            href="#arenas"
+            className="order-first flex h-14 items-center gap-3 border border-foreground px-7 label-mono text-sm font-bold text-foreground transition-colors hover:border-primary hover:text-primary"
             >
               Book an arena
             </a>
