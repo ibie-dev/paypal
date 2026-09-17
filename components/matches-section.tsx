@@ -16,6 +16,71 @@ const ARENA_CONTACTS: Record<string, { phone: string; desk: string }> = {
   'Turf Republic Lahore': { phone: '+92 311 888 7421', desk: 'Arena booking desk' },
 }
 
+function BookingConfirmationDialog({ match }: { match: (typeof MATCHES)[number] }) {
+  const [open, setOpen] = useState(false)
+  const [players, setPlayers] = useState('2')
+  const [paid, setPaid] = useState(false)
+  const [sent, setSent] = useState(false)
+  const contact = ARENA_CONTACTS[match.venue]
+  const ticketCount = Number(players)
+  const ticketPrice = Number(match.fee.match(/\d+/)?.[0] ?? 0)
+  const total = ticketCount * ticketPrice
+
+  const close = () => {
+    setOpen(false)
+    setPaid(false)
+    setSent(false)
+  }
+
+  return (
+    <>
+      <button type="button" onClick={() => setOpen(true)} className="mt-4 w-full bg-primary px-4 py-3 label-mono font-bold text-primary-foreground transition-opacity hover:opacity-90">
+        Confirm booking
+      </button>
+      {open && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-background/80 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="booking-confirmation-title">
+          <div className="w-full max-w-lg border border-border bg-card p-6 shadow-2xl">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="label-mono text-primary">PlayPal</p>
+                <h2 id="booking-confirmation-title" className="heading-condensed mt-2 text-4xl">{paid ? 'Payment received' : 'Confirm booking'}</h2>
+              </div>
+              <button type="button" onClick={close} className="flex size-9 items-center justify-center border border-border text-muted-foreground hover:text-foreground" aria-label="Close dialog">
+                <X className="size-4" />
+              </button>
+            </div>
+            {!paid ? (
+              <>
+                <p className="mt-4 leading-relaxed text-muted-foreground">How many players are joining? There are {match.slotsNeeded} open slots for this match.</p>
+                <label className="mt-5 block label-mono text-foreground" htmlFor="booking-players">Number of players</label>
+                <select id="booking-players" value={players} onChange={(event) => setPlayers(event.target.value)} className="mt-2 w-full border border-border bg-background px-3 py-3 label-mono text-foreground">
+                  {Array.from({ length: Math.min(match.slotsNeeded, 8) }, (_, index) => index + 1).map((count) => <option key={count} value={count}>{count} {count === 1 ? 'player' : 'players'} · {count} ticket{count === 1 ? '' : 's'}</option>)}
+                </select>
+                <div className="mt-4 flex items-center justify-between border border-primary/30 bg-primary/5 p-4 label-mono">
+                  <span className="text-muted-foreground">Total to pay</span>
+                  <span className="font-bold text-foreground">PKR {total.toLocaleString()}</span>
+                </div>
+                <button type="button" onClick={() => setPaid(true)} className="mt-5 w-full bg-primary py-3 label-mono font-bold text-primary-foreground hover:opacity-90">Pay {ticketCount} ticket{ticketCount === 1 ? '' : 's'}</button>
+              </>
+            ) : (
+              <>
+                <p className="mt-4 leading-relaxed text-muted-foreground">Your payment proof and tickets are ready for {ticketCount} player{ticketCount === 1 ? '' : 's'}.</p>
+                <div className="mt-5 border border-border bg-background p-4">
+                  <div className="flex items-center justify-between label-mono"><span className="text-muted-foreground">Payment proof</span><span className="text-pos-goalkeeper">PAID</span></div>
+                  <div className="mt-4 grid gap-2 label-mono text-sm text-muted-foreground"><span>{match.venue} · {match.date}</span><span>{ticketCount} ticket{ticketCount === 1 ? '' : 's'} · PKR {total.toLocaleString()}</span><span>Confirmation: PP-{match.id.toUpperCase()}-{ticketCount}T</span></div>
+                </div>
+                <button type="button" onClick={() => setSent(true)} disabled={sent} className="mt-5 w-full border border-primary py-3 label-mono font-bold text-primary hover:bg-primary hover:text-primary-foreground disabled:cursor-default disabled:opacity-70">{sent ? `Proof sent to ${contact?.phone ?? 'arena contact'}` : 'Send proof to arena contact'}</button>
+                {sent && <p className="mt-3 label-mono text-sm text-muted-foreground">Your {ticketCount} ticket{ticketCount === 1 ? '' : 's'} will be delivered to the contact number after arena confirmation.</p>}
+                <button type="button" onClick={close} className="mt-3 w-full bg-primary py-3 label-mono font-bold text-primary-foreground hover:opacity-90">Done</button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
+
 function FixtureRequestDialog({ match }: { match: (typeof MATCHES)[number] }) {
   const [open, setOpen] = useState(false)
   const [date, setDate] = useState('')
@@ -263,12 +328,7 @@ export function MatchesSection() {
                         </a>
                       )}
                     </div>
-                    <ActionDialog
-                      label="Confirm booking"
-                      title="Booking confirmed"
-                      description={`Your place for ${m.date} at ${m.venue} is confirmed. The arena contact details are ready if you need to coordinate before kickoff.`}
-                      className="mt-4 w-full bg-primary px-4 py-3 label-mono font-bold text-primary-foreground transition-opacity hover:opacity-90"
-                    />
+                    <BookingConfirmationDialog match={m} />
                   </ActionDialog>
                 ) : (
                   <FixtureRequestDialog match={m} />
