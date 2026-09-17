@@ -20,12 +20,12 @@ export function Hero() {
       />
 
       <div className="mx-auto max-w-[1400px] px-4 pb-0 pt-20 md:px-8 md:pt-28">
-        <p className="label-mono flex items-center gap-2 text-primary">
+        <p className="hero-slide-in label-mono flex items-center gap-2 text-primary">
           <MapPin className="size-3.5" aria-hidden="true" />
           Pakistan&apos;s first football ecosystem
         </p>
 
-        <h1 className="heading-condensed mt-6 max-w-[16ch] text-[clamp(3.5rem,13vw,11rem)] text-balance">
+        <h1 className="hero-slide-in hero-slide-in-delay heading-condensed mt-6 max-w-[16ch] text-[clamp(3.5rem,13vw,11rem)] text-balance">
           Challenge.
           <br />
           Book.
