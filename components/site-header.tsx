@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { LockKeyhole, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 
 const NAV = [
   { label: 'Matches', href: '#matches' },
@@ -10,7 +10,6 @@ const NAV = [
   { label: 'Players', href: '#players' },
   { label: 'Store', href: '#store' },
   { label: 'Live', href: '#live' },
-  { label: 'Coming soon', href: '#coming-soon' },
 ]
 
 export function SiteHeader() {
@@ -46,13 +45,6 @@ export function SiteHeader() {
         </nav>
 
         <div className="ml-auto flex items-center gap-2 lg:ml-0">
-          <span
-            className="hidden h-10 items-center gap-2 border border-border px-4 label-mono text-muted-foreground sm:flex"
-            aria-label="Coming soon"
-          >
-            <LockKeyhole className="size-3.5" aria-hidden="true" />
-            Coming soon
-          </span>
           <a
             href="#matches"
             className="flex h-10 items-center bg-primary px-4 label-mono font-bold text-primary-foreground transition-opacity hover:opacity-90"
