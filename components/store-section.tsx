@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { LockKeyhole } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { PRODUCTS, type ProductCategory } from '@/lib/data'
 import { SectionHeading } from '@/components/section-heading'
@@ -25,8 +26,24 @@ export function StoreSection() {
   return (
     <section
       id="store"
-      className="mx-auto max-w-[1400px] px-4 py-20 md:px-8 md:py-28"
+      className="relative mx-auto max-w-[1400px] overflow-hidden px-4 py-20 md:px-8 md:py-28"
     >
+      <div
+        className="absolute inset-0 z-20 flex items-center justify-center bg-background/80 p-6 backdrop-blur-[3px]"
+        aria-label="Store coming soon"
+        role="status"
+      >
+        <div className="flex flex-col items-center gap-4 border border-primary bg-card px-8 py-7 text-center shadow-2xl">
+          <LockKeyhole className="size-8 text-primary" aria-hidden="true" />
+          <div>
+            <p className="label-mono text-primary">Store locked</p>
+            <p className="heading-condensed mt-2 text-4xl text-foreground">Coming soon</p>
+          </div>
+          <p className="max-w-sm label-mono text-muted-foreground">
+            The PlayPal store is being prepared. Kit, equipment, and custom jerseys will be available soon.
+          </p>
+        </div>
+      </div>
       <SectionHeading
         eyebrow="06 / Store"
         title={
