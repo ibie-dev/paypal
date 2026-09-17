@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useMemo, useState } from 'react'
-import { Search, Star } from 'lucide-react'
+import { Search, Star, X } from 'lucide-react'
 import { ARENAS, CITIES } from '@/lib/data'
 import { SectionHeading } from '@/components/section-heading'
 
@@ -14,6 +14,64 @@ const STATUS = {
   },
   full: { label: 'Fully booked', className: 'bg-muted text-muted-foreground' },
 } as const
+
+const BOOKING_TIMES = ['08:00 AM', '10:00 AM', '12:00 PM', '02:00 PM', '04:00 PM', '06:00 PM', '08:00 PM']
+
+function ArenaBookingDialog({ arena }: { arena: (typeof ARENAS)[number] }) {
+  const [open, setOpen] = useState(false)
+  const [date, setDate] = useState('')
+  const [time, setTime] = useState('')
+  const [confirmed, setConfirmed] = useState(false)
+
+  function close() {
+    setOpen(false)
+    setConfirmed(false)
+  }
+
+  return (
+    <>
+      <button type="button" onClick={() => setOpen(true)} className="bg-primary px-4 py-2.5 label-mono font-bold text-primary-foreground transition-opacity hover:opacity-90">
+        {arena.status === 'full' ? 'Waitlist' : 'Book slot'}
+      </button>
+      {open && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-background/80 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby={`booking-title-${arena.id}`}>
+          <div className="w-full max-w-lg border border-border bg-card p-6 shadow-2xl">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="label-mono text-primary">PlayPal arena booking</p>
+                <h2 id={`booking-title-${arena.id}`} className="heading-condensed mt-2 text-4xl">{arena.status === 'full' ? 'Join the waitlist' : `Book ${arena.name}`}</h2>
+              </div>
+              <button type="button" onClick={close} className="flex size-9 items-center justify-center border border-border text-muted-foreground hover:text-foreground" aria-label="Close booking dialog"><X className="size-4" /></button>
+            </div>
+            {confirmed ? (
+              <div className="mt-6 border border-primary/40 bg-primary/10 p-4 label-mono text-foreground">Request saved for {date} at {time}. PlayPal will confirm availability next.</div>
+            ) : (
+              <form onSubmit={(event) => { event.preventDefault(); if (date && time) setConfirmed(true) }} className="mt-6 space-y-5">
+                <div>
+                  <label htmlFor={`date-${arena.id}`} className="label-mono text-muted-foreground">Select date</label>
+                  <input id={`date-${arena.id}`} type="date" required value={date} onChange={(event) => setDate(event.target.value)} min={new Date().toISOString().slice(0, 10)} className="mt-2 h-12 w-full border border-border bg-background px-3 label-mono text-foreground focus:border-primary focus:outline-none" />
+                </div>
+                <fieldset>
+                  <legend className="label-mono text-muted-foreground">Select time</legend>
+                  <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                    {BOOKING_TIMES.map((slot) => (
+                      <label key={slot} className={`cursor-pointer border px-3 py-3 text-center label-mono transition-colors ${time === slot ? 'border-primary bg-primary text-primary-foreground' : 'border-border text-foreground hover:border-primary hover:text-primary'}`}>
+                        <input type="radio" name={`time-${arena.id}`} value={slot} checked={time === slot} onChange={() => setTime(slot)} className="sr-only" />
+                        {slot}
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+                <button type="submit" disabled={!date || !time} className="w-full bg-primary py-3 label-mono font-bold text-primary-foreground transition-opacity enabled:hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40">{arena.status === 'full' ? 'Join waitlist' : 'Confirm booking request'}</button>
+              </form>
+            )}
+            {confirmed && <button type="button" onClick={close} className="mt-6 w-full border border-foreground py-3 label-mono font-bold text-foreground hover:border-primary hover:text-primary">Close</button>}
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
 
 export function ArenasSection() {
   const [query, setQuery] = useState('')
@@ -134,13 +192,7 @@ export function ArenasSection() {
                     Next: {a.nextSlot}
                   </p>
                 </div>
-                <button
-                  type="button"
-                  disabled={a.status === 'full'}
-                  className="px-4 py-2.5 label-mono font-bold text-primary-foreground transition-opacity enabled:bg-primary enabled:hover:opacity-90 disabled:bg-muted disabled:text-muted-foreground"
-                >
-                  {a.status === 'full' ? 'Waitlist' : 'Book slot'}
-                </button>
+                <ArenaBookingDialog arena={a} />
               </div>
             </div>
           </li>

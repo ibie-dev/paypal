@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { LockKeyhole, Menu, X } from 'lucide-react'
 
 const NAV = [
   { label: 'Matches', href: '#matches' },
@@ -10,6 +10,7 @@ const NAV = [
   { label: 'Players', href: '#players' },
   { label: 'Store', href: '#store' },
   { label: 'Live', href: '#live' },
+  { label: 'Coming soon', href: '#coming-soon' },
 ]
 
 export function SiteHeader() {
@@ -19,11 +20,13 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-[1400px] items-center gap-6 px-4 md:px-8">
         <a href="#top" className="flex items-center gap-2">
-          <span className="flex size-8 items-center justify-center bg-primary font-mono text-base font-bold text-primary-foreground">
-            P
-          </span>
+          <img
+            src="/images/playpal-logo.jpeg"
+            alt="PlayPal football logo"
+            className="size-10 rounded-md object-cover"
+          />
           <span className="heading-condensed text-2xl">
-            Pitch<span className="text-primary">League</span>
+            Play<span className="text-primary">Pal</span>
           </span>
         </a>
 
@@ -43,12 +46,13 @@ export function SiteHeader() {
         </nav>
 
         <div className="ml-auto flex items-center gap-2 lg:ml-0">
-          <a
-            href="#challenge"
-            className="hidden h-10 items-center border border-border px-4 label-mono text-foreground transition-colors hover:border-primary hover:text-primary sm:flex"
+          <span
+            className="hidden h-10 items-center gap-2 border border-border px-4 label-mono text-muted-foreground sm:flex"
+            aria-label="Coming soon"
           >
-            Log in
-          </a>
+            <LockKeyhole className="size-3.5" aria-hidden="true" />
+            Coming soon
+          </span>
           <a
             href="#matches"
             className="flex h-10 items-center bg-primary px-4 label-mono font-bold text-primary-foreground transition-opacity hover:opacity-90"

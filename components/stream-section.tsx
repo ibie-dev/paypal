@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { Check, Eye, Lock, Play } from 'lucide-react'
 import { STREAMS, STREAM_PASSES } from '@/lib/data'
 import { SectionHeading } from '@/components/section-heading'
+import { ActionDialog } from '@/components/action-dialog'
 
 export function StreamSection() {
   return (
@@ -134,16 +135,7 @@ export function StreamSection() {
                 ))}
               </ul>
 
-              <button
-                type="button"
-                className={`mt-auto py-3.5 label-mono font-bold transition-opacity hover:opacity-90 ${
-                  pass.featured
-                    ? 'bg-primary-foreground text-primary'
-                    : 'bg-primary text-primary-foreground'
-                }`}
-              >
-                Buy {pass.name}
-              </button>
+              <ActionDialog label={`Buy ${pass.name}`} title={`Get the ${pass.name}`} description={`Your ${pass.name} stream pass is ready. Continue to confirm access and payment.`} className={`mt-auto py-3.5 label-mono font-bold transition-opacity hover:opacity-90 ${pass.featured ? 'bg-primary-foreground text-primary' : 'bg-primary text-primary-foreground'}`} />
             </li>
           ))}
         </ul>

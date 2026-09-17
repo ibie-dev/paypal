@@ -262,7 +262,7 @@ export type Tournament = {
 export const TOURNAMENTS: Tournament[] = [
   {
     id: 't1',
-    name: 'PitchLeague National Cup',
+    name: 'PlayPal National Cup',
     city: 'Karachi',
     format: '11-a-side · Knockout',
     prize: 'Rs 1,500,000',
@@ -495,7 +495,7 @@ export type Product = {
 export const PRODUCTS: Product[] = [
   {
     id: 's1',
-    name: 'PitchLeague Match Ball',
+    name: 'PlayPal Match Ball',
     category: 'Equipment',
     price: 'Rs 4,200',
     oldPrice: 'Rs 5,000',
@@ -626,7 +626,7 @@ export const STREAM_PASSES = [
       '4K where available',
       'Full archive & bracket replays',
       'Works on 4 devices',
-      '10% off the PitchLeague store',
+      '10% off the PlayPal store',
     ],
     featured: false,
   },

@@ -1,7 +1,10 @@
+'use client'
+
 import Image from 'next/image'
 import { CalendarDays, Trophy, Users } from 'lucide-react'
 import { TOURNAMENTS } from '@/lib/data'
 import { SectionHeading } from '@/components/section-heading'
+import { ActionDialog } from '@/components/action-dialog'
 
 const STATUS = {
   registering: {
@@ -34,14 +37,9 @@ export function TournamentsSection() {
             Cups worth <span className="text-primary">winning</span>
           </>
         }
-        description="Knockouts, group stages and city leagues with real prize money. Enter your club, or host your own tournament on PitchLeague."
+        description="Knockouts, group stages and city leagues with real prize money. Enter your club, or host your own tournament on PlayPal."
         action={
-          <button
-            type="button"
-            className="h-14 shrink-0 border border-foreground px-7 label-mono text-sm font-bold text-foreground transition-colors hover:border-primary hover:text-primary"
-          >
-            Host a tournament
-          </button>
+          <ActionDialog label="Host a tournament" title="Host a tournament" description="Set up your tournament format, venue, entry fee and prize pool with PlayPal." className="h-14 shrink-0 border border-foreground px-7 label-mono text-sm font-bold text-foreground transition-colors hover:border-primary hover:text-primary" />
         }
       />
 

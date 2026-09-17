@@ -29,7 +29,7 @@ const COLUMNS = [
   {
     title: 'Company',
     links: [
-      { label: 'About PitchLeague', href: '#top' },
+      { label: 'About PlayPal', href: '#top' },
       { label: 'For clubs', href: '#challenge' },
       { label: 'Support', href: '#top' },
       { label: 'Terms & privacy', href: '#top' },
@@ -43,9 +43,11 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1400px] px-4 py-16 md:px-8">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr]">
           <div>
-            <p className="heading-condensed text-4xl">
-              Pitch<span className="text-primary">League</span>
-            </p>
+            <img
+              src="/images/playpal-logo.jpeg"
+              alt="PlayPal football logo"
+              className="size-28 rounded-xl object-cover"
+            />
             <p className="mt-4 max-w-sm leading-relaxed text-muted-foreground">
               Pakistan&apos;s first football ecosystem. Fixtures, grounds,
               tournaments, kit and streams — one platform, one game.
@@ -80,7 +82,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 flex flex-col gap-3 border-t border-border pt-6 label-mono text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 PitchLeague. All rights reserved.</p>
+          <p>© 2026 PlayPal. All rights reserved.</p>
           <p>Built for the clubs who can never find a ground.</p>
         </div>
       </div>
