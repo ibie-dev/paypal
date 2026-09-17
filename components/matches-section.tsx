@@ -263,6 +263,12 @@ export function MatchesSection() {
                         </a>
                       )}
                     </div>
+                    <ActionDialog
+                      label="Confirm booking"
+                      title="Booking confirmed"
+                      description={`Your place for ${m.date} at ${m.venue} is confirmed. The arena contact details are ready if you need to coordinate before kickoff.`}
+                      className="mt-4 w-full bg-primary px-4 py-3 label-mono font-bold text-primary-foreground transition-opacity hover:opacity-90"
+                    />
                   </ActionDialog>
                 ) : (
                   <FixtureRequestDialog match={m} />
