@@ -1,13 +1,20 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { Clock, MapPin, Swords, UserPlus, X } from 'lucide-react'
+import { CalendarDays, Clock, MapPin, Phone, Swords, UserPlus, X } from 'lucide-react'
 import { CITIES, MATCHES, type MatchType } from '@/lib/data'
 import { SectionHeading } from '@/components/section-heading'
 import { ActionDialog } from '@/components/action-dialog'
 
 const FIXTURE_TIMES = ['08:00 AM', '10:00 AM', '12:00 PM', '02:00 PM', '04:00 PM', '06:00 PM', '08:00 PM']
 const FIXTURE_DURATIONS = ['60 minutes', '90 minutes', '120 minutes']
+
+const ARENA_CONTACTS: Record<string, { phone: string; desk: string }> = {
+  'Gaddafi Turf Arena': { phone: '+92 300 111 2040', desk: 'Arena booking desk' },
+  'Dome Futsal Court': { phone: '+92 321 555 0188', desk: 'Front desk' },
+  'Chenab Sports Arena': { phone: '+92 333 700 4260', desk: 'Reservations team' },
+  'Turf Republic Lahore': { phone: '+92 311 888 7421', desk: 'Arena booking desk' },
+}
 
 function FixtureRequestDialog({ match }: { match: (typeof MATCHES)[number] }) {
   const [open, setOpen] = useState(false)
@@ -228,7 +235,35 @@ export function MatchesSection() {
                     title="Join this match"
                     description="Choose your player slot and confirm your details to join this open fixture."
                     className="bg-pos-goalkeeper px-4 py-2.5 label-mono font-bold text-primary-foreground transition-opacity hover:opacity-90"
-                  />
+                  >
+                    <div className="mt-5 grid gap-3 border-y border-border py-4">
+                      <p className="label-mono text-muted-foreground">Match details</p>
+                      <div className="flex items-center gap-3">
+                        <CalendarDays className="size-4 text-primary" aria-hidden="true" />
+                        <span className="label-mono text-foreground">{m.date} · {m.time} PKT</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <MapPin className="size-4 text-primary" aria-hidden="true" />
+                        <span className="label-mono text-foreground">{m.venue}, {m.city}</span>
+                      </div>
+                    </div>
+                    <div className="mt-4 flex items-center justify-between gap-4 border border-primary/30 bg-primary/5 p-4">
+                      <div>
+                        <p className="label-mono text-muted-foreground">Arena contact</p>
+                        <p className="mt-1 label-mono font-bold text-foreground">{ARENA_CONTACTS[m.venue]?.desk ?? 'Arena booking desk'}</p>
+                        <p className="mt-1 label-mono text-muted-foreground">{ARENA_CONTACTS[m.venue]?.phone ?? 'Contact available after booking'}</p>
+                      </div>
+                      {ARENA_CONTACTS[m.venue] && (
+                        <a
+                          href={`tel:${ARENA_CONTACTS[m.venue].phone.replace(/\s/g, '')}`}
+                          aria-label={`Call ${m.venue}`}
+                          className="flex size-10 shrink-0 items-center justify-center bg-primary text-primary-foreground transition-opacity hover:opacity-90"
+                        >
+                          <Phone className="size-4" aria-hidden="true" />
+                        </a>
+                      )}
+                    </div>
+                  </ActionDialog>
                 ) : (
                   <FixtureRequestDialog match={m} />
                 )}
