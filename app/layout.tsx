@@ -44,7 +44,7 @@ export const metadata: Metadata = {
         media: '(prefers-color-scheme: dark)',
       },
       {
-        url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-09-16%20at%204.03.27%20PM-MBMNx0lgmknKc60LrytdlR7wiECRLD.jpeg',
+        url: '/images/playpal-logo.jpeg',
         type: 'image/jpeg',
       },
     ],

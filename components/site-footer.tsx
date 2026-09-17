@@ -44,7 +44,7 @@ export function SiteFooter() {
         <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr]">
           <div>
             <img
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-09-16%20at%204.03.27%20PM-MBMNx0lgmknKc60LrytdlR7wiECRLD.jpeg"
+              src="/images/playpal-logo.jpeg"
               alt="PlayPal football logo"
               className="size-28 rounded-xl object-cover"
             />

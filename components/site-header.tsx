@@ -21,7 +21,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-[1400px] items-center gap-6 px-4 md:px-8">
         <a href="#top" className="flex items-center gap-2">
           <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-09-16%20at%204.03.27%20PM-MBMNx0lgmknKc60LrytdlR7wiECRLD.jpeg"
+            src="/images/playpal-logo.jpeg"
             alt="PlayPal football logo"
             className="size-10 rounded-md object-cover"
           />
