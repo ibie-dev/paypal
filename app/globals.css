@@ -99,28 +99,3 @@
   letter-spacing: -0.01em;
   line-height: 0.92;
 }
-
-.hero-ecosystem-line {
-  width: fit-content;
-  overflow: hidden;
-}
-
-.hero-ecosystem-line span {
-  display: inline-block;
-  animation: hero-tagline-slide 5s ease-in-out infinite alternate;
-}
-
-@keyframes hero-tagline-slide {
-  from {
-    transform: translateX(-18px);
-  }
-  to {
-    transform: translateX(18px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-ecosystem-line span {
-    animation: none;
-  }
-}
