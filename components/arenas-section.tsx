@@ -16,6 +16,7 @@ const STATUS = {
 } as const
 
 const BOOKING_TIMES = ['08:00 AM', '10:00 AM', '12:00 PM', '02:00 PM', '04:00 PM', '06:00 PM', '08:00 PM']
+const BOOKING_SPORTS = ['Football', 'Cricket', 'Padel', 'Futsal']
 
 function ArenaBookingDialog({ arena }: { arena: (typeof ARENAS)[number] }) {
   const [open, setOpen] = useState(false)
@@ -55,7 +56,7 @@ function ArenaBookingDialog({ arena }: { arena: (typeof ARENAS)[number] }) {
                 <fieldset>
                   <legend className="label-mono text-muted-foreground">Select sport</legend>
                   <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
-                    {arena.sports.map((option) => (
+                    {Array.from(new Set([...BOOKING_SPORTS, ...arena.sports])).map((option) => (
                       <label key={option} className={`cursor-pointer border px-3 py-3 text-center label-mono transition-colors ${sport === option ? 'border-primary bg-primary text-primary-foreground' : 'border-border text-foreground hover:border-primary hover:text-primary'}`}>
                         <input type="radio" name={`sport-${arena.id}`} value={option} checked={sport === option} onChange={() => setSport(option)} className="sr-only" />
                         {option}
